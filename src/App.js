@@ -7,6 +7,7 @@ const App = () => {
     const [data, setData] = useState([]);
     // const [category, setCategory] = useState("");
     const [inputSearch, setInputSearch] = useState("");
+    const [inputTitle, setInputTitle] = useState("");
     const [pageNumber, setPageNumber] = useState(0);
     const pagePerProduct = 10;
     const visitedPage = pageNumber * pagePerProduct;
@@ -103,6 +104,22 @@ const App = () => {
         }
     };
 
+    // input Title search sorting
+    // const inputTitleSearch = () => {
+    //     const getInputTitle = document.getElementById("inputTitleSearch").value;
+    //     console.log(getInputTitle);
+    //     let sortedData;
+    //     if (getInputTitle) {
+    //         sortedData = originalData.filter((item) => item.title == getInputTitle);
+    //         setData(sortedData);
+    //         setInputTitle(getInputTitle);
+    //         setPageNumber(0);
+    //     } else {
+    //         setData(originalData);
+    //         setPageNumber(0);
+    //     }
+    // };
+
     // input price search sorting
     const inputPriceSearch = () => {
         const inputPrice = document.getElementById("inputPrice").value;
@@ -111,7 +128,6 @@ const App = () => {
         if (inputPriceNumber) {
             sortedData = originalData.filter((item) => item.price <= inputPriceNumber);
             setData(sortedData);
-
             setInputSearch(inputPriceNumber);
             setPageNumber(0);
         } else {
@@ -126,9 +142,17 @@ const App = () => {
     return (
         <>
             <div className="container">
-                <h1 className="text-center m-4">DummyJSON AXIOS GET API</h1>
+                <h1 className="text-center p-4 text-white">DummyJSON AXIOS GET API</h1>
                 <div className="row">
-                    <div className="p-2 fw-bold text-end">
+                    <div className="p-2 fw-bold text-end text-white">
+                        <input
+                            type="text"
+                            placeholder="Enter Title To Search"
+                            id="inputTitleSearch"
+                            value={inputTitle}
+                            onChange={(e) => setInputTitle(e.target.value)}
+                            className="w-25 me-3 px-2 py-1"
+                        />
                         <input type="text" placeholder="Enter Price To Search" id="inputPrice" value={inputSearch} onChange={inputPriceSearch} className="w-25 me-3 px-2 py-1" />
                         <input type="radio" id="all" name="fav_language" className="radio" onClick={() => radioSelect(0)} value="all" defaultChecked />
                         <label htmlFor="all" className="ms-2">
@@ -168,7 +192,16 @@ const App = () => {
                             </tr>
                         </thead>
                         <tbody className="table-group-divider align-middle">
-                            {displayProducts?.map((val) => {
+                            {(inputTitle === ""
+                                ? displayProducts
+                                : data.filter((item) => {
+                                      if (item.title.toLowerCase().includes(inputTitle.toLowerCase())) {
+                                          return item;
+                                      } else {
+                                          return null;
+                                      }
+                                  })
+                            )?.map((val) => {
                                 return (
                                     <tr key={val.id}>
                                         <th scope="row">{val.id}</th>
