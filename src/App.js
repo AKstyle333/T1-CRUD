@@ -144,7 +144,7 @@ const App = () => {
             <div className="container">
                 <h1 className="text-center p-4 text-white">DummyJSON AXIOS GET API</h1>
                 <div className="row">
-                    <div className="p-2 fw-bold text-end text-white">
+                    <div className="p-2 fw-bold text-end text-white mb-3">
                         <input
                             type="text"
                             placeholder="Enter Title To Search"
