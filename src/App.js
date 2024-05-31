@@ -3,7 +3,7 @@ import axios from "axios";
 import ReactPaginate from "react-paginate";
 
 const App = () => {
-    var [originalData, setOriginalData] = useState([]);
+    const [originalData, setOriginalData] = useState([]);
     const [data, setData] = useState([]);
     // const [category, setCategory] = useState("");
     const [inputSearch, setInputSearch] = useState("");
